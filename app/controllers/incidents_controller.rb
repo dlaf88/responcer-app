@@ -1,4 +1,5 @@
 class IncidentsController < ApplicationController
+  http_basic_authenticate_with name: ENV['EXCEL_ADMIN'], password:  ENV['EXCEL_PASSWORD']
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
   # GET /incidents
