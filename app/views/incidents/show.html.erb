@@ -1,0 +1,270 @@
+
+
+
+<div class='container'>
+ <div class='row'>
+   <h2>Incident Report Sheet</h2>
+ </div>
+ <div class='row'>
+  <div class='col-lg-6'>
+    <table class="table table-striped">
+    <h3>Basic Information</h3>
+    <p id="notice"><%= notice %></p>
+    <div>
+      <tr>
+        <td> <strong>Location:</strong></td>
+        <td><%= @incident.location %></td>
+      </tr>
+    </div>
+
+    <div>
+      <tr>
+        <td><strong>Date:</strong></td>
+        <td><%= @incident.date %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td><strong>Time:</strong></td>
+        <td><%= @incident.time %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td><strong>Officer on duty:</strong></td>
+        <td><%= @incident.officer_on_duty %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td><strong>Responders called:</strong></td>
+        <td><%= @incident.responders_called %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>        
+        <td><strong>Responders arrived name:</strong></td>
+        <td><%= @incident.responders_arrived_name %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td><strong>Guard signature:</strong></td>
+        <td><%= @incident.guard_signature %></td>
+      </tr>
+    </div>
+    <div>
+      <tr>
+        <td><strong>Supervisor name:</strong></td>
+        <td><%= @incident.supervisor_name %></td>
+      </tr>
+    </div>   
+    </table>
+  </div><!-- row -->
+  <div class='col-lg-6'>
+    <table class="table table-striped">
+    
+    <h3>Alarm Company</h3>
+      <div>
+        <tr>          
+          <td><strong>Alarm company Name:</strong></td>
+          <td><%=@incident.alarm_company.name %></td>
+        </tr>
+      </div>
+      <div>
+        <tr>
+          <td><strong>Alarm company Name:</strong></td>
+          <td><%=@incident.alarm_company.representative_name %></td>
+        </tr>
+      </div>
+      <div>
+        <tr>
+          <td><strong>Alarm company Name:</strong></td>
+          <td><%=@incident.alarm_company.operator_id %></td>
+        </tr>
+      </div>
+    </table>
+  </div><!--col-lg-6-->
+ </div><!--row-->
+ <div class='row'>
+  <div class='col-lg-6'>
+    <h3>Causes of Incident</h3>
+    
+  </div>
+   <div class='col-lg-6'>
+     <table class="table table-striped">
+    <h3>Suspect or Person Arrested</h3>
+      <div>
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td><%=@incident.suspect.name %></td>
+        </tr>
+      </div>
+      <div>
+        <tr>
+          <td><strong>Age:</strong></td>
+          <td><%=@incident.suspect.age %></td>
+        </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Sex:</strong></td>
+         <td><%=@incident.suspect.sex %></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Height:</strong></td>
+         <td><%=@incident.suspect.height%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Weight:</strong></td>
+         <td><%=@incident.suspect.weight%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Facial Hair:</strong></td>
+         <td><%=@incident.suspect.facial_hair%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Eye Color:</strong></td>
+         <td><%=@incident.suspect.eye_color%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Hair color:</strong></td>
+         <td><%=@incident.suspect.hair_color%></td>        
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Clothes Description:</strong></td>
+         <td><%=@incident.suspect.clothes_description%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Other Details:</strong></td>
+         <td><%=@incident.suspect.other_details%></td>
+       </tr>
+      </div>
+     </table>
+  </div>
+ </div><!--row-->
+ <div class='row'>
+  <div class='col-lg-6'>
+    <table class="table table-striped">
+    <h3>Witness</h3>
+      <div>
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td><%=@incident.other_party.name %></td>
+        </tr>
+      </div>
+      <div>
+        <tr>
+          <td><strong>Age:</strong></td>
+          <td><%=@incident.other_party.age %></td>
+        </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Sex:</strong></td>
+         <td><%=@incident.other_party.sex %></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Height:</strong></td>
+         <td><%=@incident.other_party.height%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Weight:</strong></td>
+         <td><%=@incident.other_party.weight%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Facial Hair:</strong></td>
+         <td><%=@incident.other_party.facial_hair%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Eye Color:</strong></td>
+         <td><%=@incident.other_party.eye_color%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Hair color:</strong></td>
+         <td><%=@incident.other_party.hair_color%></td>
+       </tr>
+      </div>
+     <div>
+      <tr>
+        <td><strong>Clothes Description:</strong></td>
+        <td><%=@incident.other_party.clothes_description%></td>
+       </tr>
+      </div>
+     <div>
+       <tr>
+         <td><strong>Other Details:</strong></td>
+         <td><%=@incident.other_party.other_details%></td>
+       </tr>
+      </div>
+    </table>
+  </div>
+   <div class='col-lg-6'>
+     <table class='table table-striped'>
+    <h3>Police</h3>
+     
+      <div>
+        <tr>
+          <td><strong>Where Police Services Called?</strong></td>
+        <td><% if @incident.police.services_called == true %>
+                <%= 'Yes' %>
+        <% else %>
+        `       <%= 'No' %>
+          <% end %> </td>
+        </tr>
+      </div>
+      
+      <div>
+        <tr>
+          <td><strong>Where Did the Police Respond to Call?</strong></td>
+        <td><% if @incident.police.police_response == true %>
+                <%= 'Yes' %>
+        <% else %>
+        `       <%= 'No' %>
+        <% end %>
+          </td>
+        </tr>
+      </div>
+       <div>
+         <tr>
+           <td><strong>Did the Police Arrive?</strong></td>
+        <td><% if @incident.police.police_arrival == true %>
+                <%= 'Yes' %>
+        <% else %>
+        `       <%= 'No' %>
+          <% end %> </td>
+         </tr>
+      </div>
+      
+     </table>
+  </div>
+ </div><!--row-->
+
+  
+  <%= link_to 'Edit', edit_incident_path(@incident) %> |
+  <%= link_to 'Back', incidents_path %>
+</div>

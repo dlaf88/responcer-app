@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  services_called: false
+  police_response: false
+  police_arrival: false
+  officer_name: MyString
+  officer_badge: MyString
+  time_of_call: MyString
+  time_of_arrival: MyString
+
+two:
+  services_called: false
+  police_response: false
+  police_arrival: false
+  officer_name: MyString
+  officer_badge: MyString
+  time_of_call: MyString
+  time_of_arrival: MyString

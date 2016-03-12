@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  campus_security_issue: MyText
+  information_security_issue: MyText
+  emergency_preparedness_issue: MyText
+  maintenance_issue: MyText
+
+two:
+  campus_security_issue: MyText
+  information_security_issue: MyText
+  emergency_preparedness_issue: MyText
+  maintenance_issue: MyText
