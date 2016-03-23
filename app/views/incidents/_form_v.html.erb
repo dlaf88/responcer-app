@@ -85,12 +85,9 @@
                                 <%= p.select :alarm_company_type,["Fire","Buglary","Other - (please write in narrative box)"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
                                 <% end %>
                             </div>
-                          </div>
-                          <div class='col-lg-6'> 
-                            
-                            <div class='form-group'>
-                               <div><i class="fa fa-exclamation fa-lg"></i><h4 style='display:inline;margin-left:4px'>Information Security</h4><hr></div>
-                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Information Security'), :id, :issue) do |b|  %>
+                             <div class='form-group'>
+                              <div><i class="fa fa-trash fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Maintenance Issues</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Maintenance Issues'), :id, :issue) do |b|  %>
                               <div class="form-group">
                                 <%= b.label %>
                                 <%= b.check_box(class:'checkbox') %>
@@ -106,15 +103,20 @@
                               </div>
                               <% end %>
                             </div>
+                          </div>
+                          <div class='col-lg-6'> 
+                            
                             <div class='form-group'>
-                              <div><i class="fa fa-trash fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Maintenance Issues</h4><hr></div>
-                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Maintenance Issues'), :id, :issue) do |b|  %>
+                               <div><i class="fa fa-exclamation fa-lg"></i><h4 style='display:inline;margin-left:4px'>Information Security</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Information Security'), :id, :issue) do |b|  %>
                               <div class="form-group">
                                 <%= b.label %>
                                 <%= b.check_box(class:'checkbox') %>
                               </div>
                               <% end %>
                             </div>
+                            
+                           
                              <div class='form-group'>
                               <div><h4 style='display:inline;margin-left:4px'>Clery Act</h4><hr></div>
                               <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Clery Act'), :id, :issue) do |b|  %>
