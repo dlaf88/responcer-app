@@ -1,0 +1,13 @@
+<div class='row'>
+<%= f.fields_for :other_parties do |p| %> 
+  <%= render 'other_party_fields', f: p %>
+  
+</div><!-- end row -->
+<div class='row'>
+  <div class="col-lg-12">
+      <%= link_to_add_association 'Add Witness or Victim', f, :other_parties, {:class => 'btn btn-warning'}  %>
+  </div>
+</div>
+
+<% end %>
+                      

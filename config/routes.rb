@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   get 'incidents/test' => 'incidents#test'
   get 'responcer' => 'responcer#main'
+  
   root to: "main#show"
   resources :incidents
+  resources :incident_causes
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

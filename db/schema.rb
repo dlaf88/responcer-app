@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308232351) do
+ActiveRecord::Schema.define(version: 20160323004858) do
 
   create_table "alarm_companies", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160308232351) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "incident_id"
+    t.string   "alarm_company_type"
   end
 
   add_index "alarm_companies", ["incident_id"], name: "index_alarm_companies_on_incident_id"
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160308232351) do
     t.string   "supervisor_name"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.text     "other_type_incident"
   end
 
   create_table "other_parties", force: :cascade do |t|
@@ -100,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160308232351) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "incident_id"
+    t.string   "suspect_type"
   end
 
   add_index "suspects", ["incident_id"], name: "index_suspects_on_incident_id"

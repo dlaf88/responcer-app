@@ -4,11 +4,8 @@
 
             <div class="row">
                 <div class="col-md-12">
-                  <div>
-                  <img src='https://s3.amazonaws.com/abzolive1/static/responcer_app/logo/Powered+by+Responcer.jpg'> <hr>               
-                  </div>
-                  <%= form_for @incident,:html => { :id => "wizard_example" } do  |f| %>
-                  
+                  <div><img src='https://s3.amazonaws.com/abzolive1/static/responcer_app/logo/Powered+by+Responcer.jpg'><hr></div>
+                  <%= form_for @incident,:html => { :id => "wizard_example" } do  |f| %>                  
                      <% if @incident.errors.any? %>
                         <div id="error_explanation">
                           <h2><%= pluralize(@incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
@@ -21,10 +18,9 @@
                       <% end %>
                      
                       <fieldset>
-                        <legend>Basic Incident information</legend>
+                        <legend>Incident information</legend>
                         <div class="row">
-                          <div class="col-lg-6">
-                            <p>Basic information</p>
+                          <div class="col-lg-6">                           
                             <div class="form-group">                          
                               <i class="fa fa-building-o"></i> <%= f.label :location  %><br>
                               <%= render "locations",:f => f%>                           
@@ -40,32 +36,17 @@
                               <%= f.text_field :time, :class => 'form-control input-small',:id => 'timepicker1' %>
                               
                             </div>
-                             <p>Alarm Company</p>
-                            <%= f.fields_for :alarm_company do |p| %>
-                            <label>Alarm Company Name</label>
-                            <%= p.text_field :name, :class => 'form-control' %>
-                            <label>Representative Name</label>
-                            <%= p.text_field :representative_name,:class => 'form-control' %>
-                            <label>Operator ID</label>
-                            <%= p.text_field :operator_id, :class => 'form-control'%>
-                            <% end %>
+                          
                           </div><!--col-lg-6-->
                          <div class='col-lg-6'>
-                              <p>Officer on Duty</p>
+                              
                               <div class="form-group">
-                                <%= f.label :officer_on_duty %><br>
+                               <label>Security Officer on Duty</label><br>
                                 <%= f.text_field :officer_on_duty, :class => 'form-control' %>
                            </div>
+                              
                               <div class="form-group">
-                                <%= f.label :responders_called %><br>
-                                <%= f.select :responders_called,["Yes","No"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
-                              </div>
-                              <div class="form-group">
-                                <%= f.label :responders_arrived_name %><br>
-                                <%= f.text_field :responders_arrived_name, :class => 'form-control' %>
-                              </div>
-                              <div class="form-group">
-                                <%= f.label :guard_signature %><br>
+                                <label>Security Officer Signature</label><br>
                                 <%= f.text_field :guard_signature, :class => 'form-control' %>
                               </div>
                               <div class="form-group">
@@ -77,148 +58,89 @@
                                               
                       </fieldset><!--Basic incident information -->
                       <fieldset>                      
-                        <legend>Causes of Incident</legend>
-                          <div class='row'>
-                            <div class='col-lg-6'>   
+                        <legend>Types of Incidents</legend>
+                        <div class='row'>
+                          <div class='col-lg-6'> 
+                            
                               <div class='form-group'>
-                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Campus Security'), :id, :issue) do |b|  %>
-                             <div class="form-group">
-                                <%= b.label %>
-                                <%= b.check_box(class:'checkbox') %>
-                             </div>
-                              <% end %>
-                               </div>
-                                <div class='form-group'>
+                                <div><i class="fa fa-university fa-lg"></i><h4 style='display:inline;margin-left:4px'>Campus Security</h4><hr></div>
+                                <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Campus Security'), :id, :issue) do |b|  %>
+                                <div class="form-group">
+                                  <%= b.label %>
+                                  <%= b.check_box(class:'checkbox') %>
+                                </div>
+                                <% end %>
+                              </div>
+                              <div class='form-group'>
+                                <div><i class="fa fa-bell fa-lg"></i><h4 style='display:inline;margin-left:4px'>Alarm Incident</h4><hr></div>
+                                <%= f.fields_for :alarm_company do |p| %>
+                                <label>Alarm Company</label>
+                                
+                                <%= p.text_field :name, :class => 'form-control' %>
+                                <label>Representative Name</label>
+                                <%= p.text_field :representative_name,:class => 'form-control' %>
+                                <label>Operator ID</label>
+                                <%= p.text_field :operator_id, :class => 'form-control'%>
+                                <label>Alarm Type</label>                                
+                                <%= p.select :alarm_company_type,["Fire","Buglary","Other - (please write in narrative box)"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
+                                <% end %>
+                            </div>
+                          </div>
+                          <div class='col-lg-6'> 
+                            
+                            <div class='form-group'>
+                               <div><i class="fa fa-exclamation fa-lg"></i><h4 style='display:inline;margin-left:4px'>Information Security</h4><hr></div>
                               <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Information Security'), :id, :issue) do |b|  %>
-                             <div class="form-group">
+                              <div class="form-group">
                                 <%= b.label %>
                                 <%= b.check_box(class:'checkbox') %>
-                             </div>
+                              </div>
                               <% end %>
-                               </div>
-                                <div class='form-group'>
+                            </div>
+                            <div class='form-group'>
+                              <div><i class="fa fa-fire-extinguisher fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Emergency Preparedness</h4><hr></div>
                               <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Emergency Preparedness'), :id, :issue) do |b|  %>
-                             <div class="form-group">
+                              <div class="form-group">
                                 <%= b.label %>
                                 <%= b.check_box(class:'checkbox') %>
-                             </div>
+                              </div>
                               <% end %>
-                               </div>
-                             </div>
-                          </div>  <!--row-->
+                            </div>
+                            <div class='form-group'>
+                              <div><i class="fa fa-trash fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Maintenance Issues</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Maintenance Issues'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                             <div class='form-group'>
+                              <div><h4 style='display:inline;margin-left:4px'>Clery Act</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Clery Act'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                            <div class='form-group'>
+                              <label>Other Incident (Narrative Box)</label>
+                               <%= f.text_area :other_type_incident, :class => 'form-control',:placeholder => 'Please be specific regarding the incident.' %>
+                            </div>
+                          </div><!--col-lg-6-->
+                        </div>  <!--row-->
                       </fieldset> 
                       <fieldset>
                         <legend>Victim or Witness</legend>
-                        <div class='row'>
-                        
-                            <%= f.fields_for :other_party do |p| %> 
-                             <div class='col-lg-6'>
-                              <div class='form-group'>
-                                <label>Type</label>
-                                <%= p.select :other_party_type,['Witness','Victim'],{:prompt =>'Witness or Victim?'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Name</label>
-                                <%= p.text_field :name, :class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Age</label>
-                                <%= p.text_field :age, :class => 'form-control' %>                                  
-                              </div>
-                              <div class='form-group'>
-                               <label>Sex</label>
-                               <%= p.select :sex,['Male','Female'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>                                  
-                              </div>
-                              <div class='form-group'>
-                               <label>Height</label>
-                                <%= p.select :height,["below 4'10\"","4'10\"","4'11\"","4'12\"","5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","6'6\"","6'7\"","6'8\"","6'9\"","6'10\"","6'11\"","7'0\"","above 7'"],{:prompt => 'Choose one if applicable.'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                               
-                              <label>Weight</label>
-                              <%= p.text_field :weight, :class => 'form-control' %>
-                              </div>
-                          </div>
-                          <div class='col-lg-6'>
-                              <div class='form-group'>
-                              <label>Eye Color</label>
-                              <%= p.select :eye_color,['brown','black','blue','green','other'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                              
-                              <label>Hair Color</label>
-                              <%= p.select :hair_color,['black','brown','blonde','grey','red','other'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Facial Hair</label>
-                              <%= p.select :facial_hair,['Yes','No'],{:prompt => 'Choose one if applicable.'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                              
-                                <label>Clothes Description</label>
-                                <%= p.text_area :clothes_description, :class => 'form-control',:placerholder => "Jeans,Pants,shirt,etc.." %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Other details</label>
-                                <%= p.text_area :other_details, :class => 'form-control' %>
-                              </div>
-                          </div>
-                        <% end %>
-                       </div>
+                          <%= render partial: "other_party", locals: {f: f} %> 
+                      </fieldset>
+                      <fieldset>
+                        <legend>Accused or Suspect</legend>                        
+                           <%= render partial: "suspect", locals: {f: f} %>                                                    
                       </fieldset>
                        <fieldset>
-                        <legend>Person Arrested or Suspect</legend>
-                        <div class='row'>
-                        
-                            <%= f.fields_for :suspect do |p| %> 
-                             <div class='col-lg-6'>
-                              
-                              <div class='form-group'>
-                                <label>Name</label>
-                                <%= p.text_field :name, :class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Age</label>
-                                <%= p.text_field :age, :class => 'form-control' %>                                  
-                              </div>
-                              <div class='form-group'>
-                               <label>Sex</label>
-                               <%= p.select :sex,['Male','Female'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>                                  
-                              </div>
-                              <div class='form-group'>
-                               <label>Height</label>
-                                <%= p.select :height,["below 4'10\"","4'10\"","4'11\"","4'12\"","5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","6'6\"","6'7\"","6'8\"","6'9\"","6'10\"","6'11\"","7'0\"","above 7'"],{:prompt => 'Choose one if applicable.'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                               
-                              <label>Weight</label>
-                              <%= p.text_field :weight, :class => 'form-control' %>
-                              </div>
-                          </div>
-                          <div class='col-lg-6'>
-                              <div class='form-group'>
-                              <label>Eye Color</label>
-                              <%= p.select :eye_color,['brown','black','blue','green','other'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                              
-                              <label>Hair Color</label>
-                              <%= p.select :hair_color,['black','brown','blonde','grey','red','other'],{:prompt => 'Choose one if applicable'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Facial Hair</label>
-                              <%= p.select :facial_hair,['Yes','No'],{:prompt => 'Choose one if applicable.'},:class => 'form-control' %>
-                              </div>
-                              <div class='form-group'>                              
-                                <label>Clothes Description</label>
-                                <%= p.text_area :clothes_description, :class => 'form-control',:placerholder => "Jeans,Pants,shirt,etc.." %>
-                              </div>
-                              <div class='form-group'>
-                                <label>Other details</label>
-                                <%= p.text_area :other_details, :class => 'form-control' %>
-                              </div>
-                              
-                          </div>
-                        <% end %>
-                       </div>
-                      </fieldset>
-                       <fieldset>
-                        <legend>Police</legend>
+                        <legend>Emergency Response</legend>
                         <div class='row'>
                         
                             <%= f.fields_for :police do |p| %> 
@@ -253,11 +175,19 @@
                             <div class='form-group input-group bootstrap-timepicker timepicker'>                              
                               <label>Time of arrival</label>
                               <%= p.text_field :time_of_arrival,:class => 'form-control input-small',:id =>'timepicker3' %>
-                          </div>
-                             
+                          </div>         
+                            <div class="form-group">
+                              <label>Emergency Personnel called</label>
+                                <%= f.select :responders_called,["Fire","EMT"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
+                              </div>
+                              <div class="form-group">
+                                <label>Other Emergency Personnel called </label>
+                                <%= f.text_field :responders_arrived_name, :class => 'form-control' %>
+                              </div>
                               
                           </div>
                         <% end %>
+                          
                        </div>
                       </fieldset>
                    

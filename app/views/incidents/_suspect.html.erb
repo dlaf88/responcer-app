@@ -1,0 +1,11 @@
+<div class='row'>
+<%= f.fields_for :suspects do |p| %> 
+ <%= render 'suspect_fields', f: p %>
+</div><!-- end row -->
+<div class='col-lg-12'>
+   <%= link_to_add_association 'Additional Accused or Suspect', f, :suspects, {:class => 'btn btn-warning center'}  %>
+</div>
+
+
+                        <% end %>
+                      
