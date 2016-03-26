@@ -1,123 +1,232 @@
-<%= form_for(@incident) do |f| %>
-  <% if @incident.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+<div class="container">
+    <div class="site-index">
+        <div class="body-content">
 
-      <ul>
-      <% @incident.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-<%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'dog'), :id, :issue)%>
- <h3>Alarm Company</h3>
-<%= f.fields_for :alarm_company do |p| %>
-<label>Alarm Company Name</label>
-  <%= p.text_field :name %>
-<label>Representative Name</label>
-  <%= p.text_field :representative_name %>
-<label>Operator ID</label>
-  <%= p.text_field :operator_id %>
-<% end %>
-<h3>Police</h3>
-<%= f.fields_for :police do |p| %>
-<label>Services Called</label>
-<%= p.check_box :services_called %>
-<label>Police Response</label>
-<%= p.check_box :police_response %>
-<label>Police Arrival</label>
-<%= p.check_box :police_arrival %>
-<label>Officer Name</label>
-<%= p.text_field :officer_name %>
-<label>Office Badge</label>
-<%= p.text_field :officer_badge %>
-<label>Time of call</label>
-<%= p.text_field :time_of_call %>
-<label>Time of arrival</label>
-<%= p.text_field :time_of_arrival %>
-<% end %>
+            <div class="row">
+                <div class="col-md-12">
+                  <div><img src='https://s3.amazonaws.com/abzolive1/static/responcer_app/logo/Powered+by+Responcer.jpg'><hr></div>
+                  <%= form_for @incident,:html => { :id => "wizard_example" } do  |f| %>                  
+                     <% if @incident.errors.any? %>
+                        <div id="error_explanation">
+                          <h2><%= pluralize(@incident.errors.count, "error") %> prohibited this incident from being saved:</h2>
+                          <ul>
+                            <% @incident.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      <% end %>
+                     
+                      <fieldset>
+                        <legend>Incident information</legend>
+                        <div class="row">
+                          <div class="col-lg-6">                           
+                            <div class="form-group">                          
+                              <i class="fa fa-building-o"></i> <%= f.label :location  %><br>
+                              <%= render "locations",:f => f%>                           
+                            </div>
+                            <div class="form-group">  
+                              <i class="fa fa-calendar-o"></i>
+                              <%= f.label :date %><br>
+                              <%= f.text_field :date, :class => 'form-control',:id => 'datepicker'%>  
+                            </div>
+                            <div class="form-group input-group bootstrap-timepicker timepicker">
+                              <i class="fa fa-clock-o"></i>
+                              <%= f.label :time %><br>
+                              <%= f.text_field :time, :class => 'form-control input-small',:id => 'timepicker1' %>
+                              
+                            </div>
+                          
+                          </div><!--col-lg-6-->
+                         <div class='col-lg-6'>
+                              
+                              <div class="form-group">
+                               <label>Security Officer on Duty</label><br>
+                                <%= f.text_field :officer_on_duty, :class => 'form-control' %>
+                           </div>
+                              
+                              <div class="form-group">
+                                <label>Security Officer Signature</label><br>
+                                <%= f.text_field :guard_signature, :class => 'form-control' %>
+                              </div>
+                              <div class="form-group">
+                                <%= f.label :supervisor_name %><br>
+                                <%= f.text_field :supervisor_name, :class => 'form-control' %>
+                              </div>
+                            </div><!--col-lg-6--end-->                        
+                        </div><!--row-->   
+                                              
+                      </fieldset><!--Basic incident information -->
+                      <fieldset>                      
+                        <legend>Types of Incidents</legend>
+                        <div class='row'>
+                          <div class='col-lg-6'> 
+                            
+                              <div class='form-group'>
+                                <div><i class="fa fa-university fa-lg"></i><h4 style='display:inline;margin-left:4px'>Campus Security</h4><hr></div>
+                                <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Campus Security'), :id, :issue) do |b|  %>
+                                <div class="form-group">
+                                  <%= b.label %>
+                                  <%= b.check_box(class:'checkbox') %>
+                                </div>
+                                <% end %>
+                              </div>
+                              <div class='form-group'>
+                                <div><i class="fa fa-bell fa-lg"></i><h4 style='display:inline;margin-left:4px'>Alarm Incident</h4><hr></div>
+                                <%= f.fields_for :alarm_company do |p| %>
+                                <label>Alarm Company</label>
+                                
+                                <%= p.text_field :name, :class => 'form-control' %>
+                                <label>Representative Name</label>
+                                <%= p.text_field :representative_name,:class => 'form-control' %>
+                                <label>Operator ID</label>
+                                <%= p.text_field :operator_id, :class => 'form-control'%>
+                                <label>Alarm Type</label>                                
+                                <%= p.select :alarm_company_type,["Fire","Buglary","Other - (please write in narrative box)"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
+                                <% end %>
+                            </div>
+                             <div class='form-group'>
+                              <div><i class="fa fa-trash fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Maintenance Issues</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Maintenance Issues'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                            <div class='form-group'>
+                              <div><i class="fa fa-fire-extinguisher fa-lg" ></i><h4 style='display:inline;margin-left:4px'>Emergency Preparedness</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Emergency Preparedness'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                          </div>
+                          <div class='col-lg-6'> 
+                            
+                            <div class='form-group'>
+                               <div><i class="fa fa-exclamation fa-lg"></i><h4 style='display:inline;margin-left:4px'>Information Security</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Information Security'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                            
+                           
+                             <div class='form-group'>
+                              <div><i class="fa fa-exclamation fa-lg"></i><h4 style='display:inline;margin-left:4px'>Clery Act</h4><hr></div>
+                              <%= collection_check_boxes(:incident, :incident_cause_ids, IncidentCause.where(:issue_type => 'Clery Act'), :id, :issue) do |b|  %>
+                              <div class="form-group">
+                                <%= b.label %>
+                                <%= b.check_box(class:'checkbox') %>
+                              </div>
+                              <% end %>
+                            </div>
+                            <div class='form-group'>
+                              <label>Other Incident (Narrative Box)</label>
+                               <%= f.text_area :other_type_incident, :class => 'form-control',:placeholder => 'Please be specific regarding the incident.' %>
+                            </div>
+                          </div><!--col-lg-6-->
+                        </div>  <!--row-->
+                      </fieldset> 
+                      <fieldset>
+                        <legend>Victim or Witness</legend>
+                          <%= render partial: "other_party", locals: {f: f} %> 
+                      </fieldset>
+                      <fieldset>
+                        <legend>Accused or Suspect</legend>                        
+                           <%= render partial: "suspect", locals: {f: f} %>                                                    
+                      </fieldset>
+                       <fieldset>
+                        <legend>Emergency Response</legend>
+                        <div class='row'>
+                        
+                            <%= f.fields_for :police do |p| %> 
+                             <div class='col-lg-6'>
+                              
+                              <div class='form-group'>
+                                <label>Check if Police services called:</label>
+                                <%= p.check_box :services_called,:class => 'checkbox' %>
+                              </div>
+                              <div class='form-group'>
+                                <label>Check if Police responsed to call:</label>
+                                 <%= p.check_box :police_response,:class => 'checkbox' %>                                 
+                              </div>
+                              <div class='form-group'>
+                               <label>Check if Police arrived:</label>
+                               <%= p.check_box :police_arrival,:class => 'checkbox' %>                                  
+                              </div>
+                              <div class='form-group'>
+                               <label>Officer Name</label>
+                               <%= p.text_field :officer_name,:class => 'form-control' %>
+                              </div>
+                               <div class='form-group'>                               
+                                 <label>Office Badge</label>
+                                 <%= p.text_field :officer_badge,:class => 'form-control' %>
+                               </div>
+                          </div>
+                          <div class='col-lg-6'>
+                            <div class='form-group input-group bootstrap-timepicker timepicker'>
+                              <label>Time of call</label>
+                              <%= p.text_field :time_of_call,:class => 'form-control input-small',:id =>'timepicker2' %>
+                            </div>
+                            <div class='form-group input-group bootstrap-timepicker timepicker'>                              
+                              <label>Time of arrival</label>
+                              <%= p.text_field :time_of_arrival,:class => 'form-control input-small',:id =>'timepicker3' %>
+                          </div>         
+                            <div class="form-group">
+                              <label>Emergency Personnel called</label>
+                                <%= f.select :responders_called,["Fire","EMT"],{:prompt => 'Choose one if applicable.'}, :class => 'form-control' %>
+                              </div>
+                              <div class="form-group">
+                                <label>Other Emergency Personnel called </label>
+                                <%= f.text_field :responders_arrived_name, :class => 'form-control' %>
+                              </div>
+                              
+                          </div>
+                        <% end %>
+                          
+                       </div>
+                      </fieldset>
+                   
+                  <% end %>                   
+                  
+                  
+                </div><!--col-md-12-->
+            </div><!--row-->
+        </div><!--body-content-->    
+  </div><!--site-index-->                 
+</div><!--container end>        
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
 
-<h3>Suspect</h3>
-<%= f.fields_for :suspect do |p| %>     
-<label>Suspect Name</label>
-<%= p.text_field :name %>
-<label>Age</label>
-<%= p.text_field :age %>
-<label>Sex</label>
-<%= p.text_field :sex %>
-<label>Height</label>
-<%= p.text_field :height %>
-<label>Weight</label>
-<%= p.text_field :weight %>
-<label>Eye Color</label>
-<%= p.text_field :eye_color %>
-<label>Hair Color</label>
-<%= p.text_field :hair_color %>
-<label>Facial Hair</label>
-<%= p.text_field :facial_hair %>
-<label>Clothes Description</label>
-<%= p.text_field :clothes_description %>
-<% end %>
 
-<h3>Other Party</h3>
-<%= f.fields_for :other_party do |p| %> 
-<label>Type</label>
-<%= p.text_field :other_party_type %>
-<label>Suspect Name</label>
-<%= p.text_field :name %>
-<label>Age</label>
-<%= p.text_field :age %>
-<label>Sex</label>
-<%= p.text_field :sex %>
-<label>Height</label>
-<%= p.text_field :height %>
-<label>Weight</label>
-<%= p.text_field :weight %>
-<label>Eye Color</label>
-<%= p.text_field :eye_color %>
-<label>Hair Color</label>
-<%= p.text_field :hair_color %>
-<label>Facial Hair</label>
-<%= p.text_field :facial_hair %>
-<label>Clothes Description</label>
-<%= p.text_area :clothes_description %>
-<label>Other details</label>
-<%= p.text_area :other_details %>
-<% end %>
-  <div class="field">
-    <%= f.label :location %><br>
-    <%= f.text_area :location %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.text_field :date %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
-  </div>
-  <div class="field">
-    <%= f.label :officer_on_duty %><br>
-    <%= f.text_area :officer_on_duty %>
-  </div>
-  <div class="field">
-    <%= f.label :responders_called %><br>
-    <%= f.text_field :responders_called %>
-  </div>
-  <div class="field">
-    <%= f.label :responders_arrived_name %><br>
-    <%= f.text_field :responders_arrived_name %>
-  </div>
-  <div class="field">
-    <%= f.label :guard_signature %><br>
-    <%= f.text_field :guard_signature %>
-  </div>
-  <div class="field">
-    <%= f.label :supervisor_name %><br>
-    <%= f.text_field :supervisor_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+
+
