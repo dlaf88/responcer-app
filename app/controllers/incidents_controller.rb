@@ -48,7 +48,9 @@ class IncidentsController < ApplicationController
     
     respond_to do |format|
       if @incident.save
+        if Rails.env.production?
         IncidentNotifier.incident_sent(@incident).deliver
+        end 
         format.html { redirect_to @incident, notice: 'Incident was successfully created.' }
         format.json { render :show, status: :created, location: @incident }
       else
