@@ -1,5 +1,5 @@
 class IncidentsController < ApplicationController
-  http_basic_authenticate_with name: ENV['EXCEL_ADMIN'], password:  ENV['EXCEL_PASSWORD']
+  http_basic_authenticate_with name: ENV['EXCEL_ADMIN'], password:  ENV['EXCEL_PASSWORD'], only:[:index,:show,:edit,:update,:destroy]
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
   # GET /incidents
@@ -51,7 +51,7 @@ class IncidentsController < ApplicationController
         if Rails.env.production?
         IncidentNotifier.incident_sent(@incident).deliver
         end 
-        format.html { redirect_to @incident, notice: 'Incident was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Incident was successfully created.' }
         format.json { render :show, status: :created, location: @incident }
       else
         format.html { render :new }
