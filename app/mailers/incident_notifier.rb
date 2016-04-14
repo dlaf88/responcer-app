@@ -8,3 +8,4 @@ class IncidentNotifier < ApplicationMailer
     :subject => 'A Guard has made an incident report' )
   end
 end
+g
